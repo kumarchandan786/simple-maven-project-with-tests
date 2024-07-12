@@ -1,12 +1,12 @@
-node('master') {
+node {
     checkout scm
 
     stage('Build') {
         withMaven(maven: 'M3') {
             if (isUnix()) {
-                sh 'mvn -Dmaven.test.failure.ignore clean package'
+                sh 'mvn clean package'
             } else {
-                bat 'mvn -Dmaven.test.failure.ignore clean package'
+                bat 'mvn clean package'
             }
         }
     }
@@ -16,3 +16,4 @@ node('master') {
         archiveArtifacts artifacts: 'target/*.jar', allowEmptyArchive: true
     }
 }
+
